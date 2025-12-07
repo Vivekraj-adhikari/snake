@@ -15,13 +15,13 @@ Point = namedtuple('Point', 'x, y')
 font = pygame.font.Font('arial.ttf', 25)
 
 BLOCK_SIZE = 20
-GAME_SPEED = 15
+GAME_SPEED = 5
 
 # rgb colors
 WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-BLUE1 = (0, 0, 255)
-BLUE2 = (0, 100, 255)
+RED = (204, 86, 101)
+BLUE1 = (7, 97, 39)
+BLUE2 = (61, 184, 104)
 BLACK = (0, 0, 0)
 
 class SnakeGame:
@@ -43,8 +43,8 @@ class SnakeGame:
         self._place_food()
     
     def _place_food(self):
-        x = random.randint(BLOCK_SIZE, (self.w - BLOCK_SIZE) // BLOCK_SIZE) * BLOCK_SIZE
-        y = random.randint(BLOCK_SIZE, (self.h - BLOCK_SIZE) // BLOCK_SIZE) * BLOCK_SIZE
+        x = random.randint(0, (self.w - BLOCK_SIZE) // BLOCK_SIZE) * BLOCK_SIZE
+        y = random.randint(0, (self.h - BLOCK_SIZE) // BLOCK_SIZE) * BLOCK_SIZE
         self.food = Point(x, y)
         if self.food in self.snake:
             self._place_food()
@@ -112,14 +112,14 @@ class SnakeGame:
         self.head = Point(x, y)
 
     def _update_ui(self):
-        self.display.fill(BLACK)
+        self.display.fill(WHITE)
         for pt in self.snake:
             pygame.draw.circle(self.display, BLUE1, [pt.x, pt.y], BLOCK_SIZE / 2)
             pygame.draw.circle(self.display, BLUE2, [pt.x, pt.y], BLOCK_SIZE / 2 - 3)
         
         pygame.draw.circle(self.display, RED, [self.food.x, self.food.y], BLOCK_SIZE / 2)
 
-        text = font.render(f'Score: {self.score}', True, WHITE)
+        text = font.render(f'Score: {self.score}', True, BLACK)
         self.display.blit(text, [0, 0])
         pygame.display.flip()
 
