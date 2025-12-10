@@ -121,7 +121,7 @@ def train():
             agent.train_long_memory()
             if score > best_score:
                 best_score = score
-                # agent.model.save
+                agent.model.save()
             
             print(f"Game: {agent.n_games}, Score: {score}, Highest_Score: {best_score}")
 
