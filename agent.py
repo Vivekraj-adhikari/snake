@@ -82,7 +82,7 @@ class Agent:
             move = random.randint(0, 2)
             final_move[move] = 1
         else:
-            state0 = torch.tensor(state, dtype=float)
+            state0 = torch.tensor(state, dtype=torch.float)
             prediction = self.model(state0)
             move = torch.argmax(prediction).item()
             final_move[move] = 1
@@ -92,15 +92,15 @@ class Agent:
 def train():
     plot_scores = []
     plot_mean_scores = []
-    total_score = []
-    best_score = []
+    total_score = 0
+    best_score = 0
 
     agent = Agent()
     game = SnakeGame()
 
     while True:
         # get current state
-        state_old = agent.get_state()
+        state_old = agent.get_state(game)
 
         # get action for that state
         final_move = agent.get_action(state_old)
